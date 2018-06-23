@@ -9,7 +9,7 @@ fi
 mkdir ./bin/
 
 ## Compilo todo
-g++ -Wall -std=c++11 -ldl main.cpp -o ./bin/main.bin
+g++ -Wall -std=c++11 -ldl -I./include/ main.cpp -o ./bin/main.bin
 g++ -shared -Wall -std=c++11 -fPIC -I./include/ ./src/Application/Application.cpp -o ./bin/Application.so
 g++ -shared -Wall -std=c++11 -fPIC -I./include/ ./src/ConsoleGreeter/ConsoleGreeter.cpp -o ./bin/Greeter.so
 

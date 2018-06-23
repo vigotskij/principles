@@ -5,9 +5,9 @@
 **/
 
 #include <iostream>
-#include "include/ComponentFactory.h"
-#include "include/ComponentInterface.h"
-#include "include/ApplicationInterface.h"
+#include <ComponentFactory.h>
+#include <ComponentInterface.h>
+#include <ApplicationInterface.h>
 
 int main()
 {
