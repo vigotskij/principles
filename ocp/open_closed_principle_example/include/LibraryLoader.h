@@ -12,7 +12,7 @@
     #define RTLD_LAZY   1
     #define RTLD_NOW    2
     #define RTLD_GLOBAL 4
-    #include "dlfcn.h"
+    #include <dlfcn.h>
 
 #elif defined(_WIN32) || defined(WIN32)
     #include <windows.h>
