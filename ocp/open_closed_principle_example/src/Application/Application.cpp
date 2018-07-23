@@ -11,16 +11,17 @@
 #include <ApplicationInterface.h>
 #include <ComponentInterface.h>
 #include <GreeterIterface.h>
+#include <MessengerInterface.h>
 
 class Application : public ApplicationInterface, public ComponentInterface
 {
     public:
         Application();
-        virtual ~Application();
+        virtual ~Application() ;
         int run();
 
         //ComponentInterface:
-        bool implements(std::string interfaceName);
+        bool implements(std::string interfaceName) ;
         void* getInstance();
         void release();
 
@@ -35,17 +36,24 @@ Application::~Application(){}
 
 int Application::run()
 {
-    ComponentFactory* componentFactoryObject = new ComponentFactory();
+    ComponentFactory *componentFactoryObject001 = new ComponentFactory() ;
+    componentFactoryObject001->setInterfaceName( "GreeterInterface" ) ;
+    ComponentInterface *greeterComponent = componentFactoryObject001->createFrom( "./Greeter" ) ;
+    delete componentFactoryObject001 ;
 
-    componentFactoryObject->setInterfaceName("GreeterInterface");
-    ComponentInterface* greeterComponent = componentFactoryObject->createFrom("./Greeter");
-    GreeterInterface* greeterObject = ( (GreeterInterface*) greeterComponent->getInstance() );
-    greeterObject->greet("Hello");
-    greeterComponent->release();
+    ComponentFactory *componentFactoryObject002 = new ComponentFactory() ;
+    componentFactoryObject002->setInterfaceName( "MessengerInterface" ) ;
+    ComponentInterface *messengerComponent = componentFactoryObject002->createFrom( "./Messeger" ) ;
+    delete componentFactoryObject002 ;
 
-    delete componentFactoryObject;
+    MessengerInterface *messengerObject = ( ( MessengerInterface* ) messengerComponent->getInstance() ) ;
 
-    return 0;
+    GreeterInterface *greeterObject = ( ( GreeterInterface* ) greeterComponent->getInstance() ) ;
+    greeterObject->greet( messengerObject->say() ) ;
+    greeterComponent->release() ;
+    messengerComponent->release() ;
+
+    return 0 ;
 }
 
 //ComponentInterface:
@@ -64,13 +72,13 @@ void* Application::getInstance()
 
 void Application::release()
 {
-    referenceCounter--;
-    if(referenceCounter <= 0) delete this;
+    referenceCounter-- ;
+    if(referenceCounter <= 0) delete this ;
 }
 
-extern "C" ComponentInterface* create();
+extern "C" ComponentInterface* create() ;
 
 ComponentInterface* create()
 {
-    return (ComponentInterface*) new Application;
+    return (ComponentInterface*) new Application ;
 }

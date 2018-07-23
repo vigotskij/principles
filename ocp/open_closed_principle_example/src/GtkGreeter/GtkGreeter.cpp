@@ -14,25 +14,25 @@
 class GtkGreeter : public GreeterInterface, public ComponentInterface
 {
     public:
-        GtkGreeter();
-        virtual ~GtkGreeter();
-        void greet(std::string message);
+        GtkGreeter() ;
+        virtual ~GtkGreeter() ;
+        void greet( std::string message ) ;
 
         //ComponentInterface:
-        bool implements(std::string interfaceName);
-        void* getInstance();
-        void release();
+        bool implements( std::string interfaceName ) ;
+        void* getInstance() ;
+        void release() ;
 
     private:
-        int referenceCounter;
-        bool implemented;
+        int referenceCounter ;
+        bool implemented ;
 };
 
 GtkGreeter::GtkGreeter() : referenceCounter(0){}
 
 GtkGreeter::~GtkGreeter(){}
 
-void GtkGreeter::greet(std::string message)
+void GtkGreeter::greet( std::string message )
 {
     GtkWidget *window;
     GtkWidget *button;

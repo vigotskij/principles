@@ -11,14 +11,14 @@
 
 int main()
 {
-    ComponentFactory* componentFactoryObject = new ComponentFactory();
-    componentFactoryObject->setInterfaceName("ApplicationInterface");
-    ComponentInterface* applicationComponent = componentFactoryObject->createFrom("./Application");
-    delete componentFactoryObject;
+    ComponentFactory *componentFactoryObject = new ComponentFactory() ;
+    componentFactoryObject->setInterfaceName( "ApplicationInterface" ) ;
+    ComponentInterface *applicationComponent = componentFactoryObject->createFrom( "./Application" ) ;
+    delete componentFactoryObject ;
 
-    ApplicationInterface* applicationObject = ( (ApplicationInterface*) applicationComponent->getInstance() );
-    applicationObject->run();
-    applicationComponent->release();
+    ApplicationInterface *applicationObject = ( ( ApplicationInterface* ) applicationComponent->getInstance() ) ;
+    applicationObject->run() ;
+    applicationComponent->release() ;
 
-    return 0;
+    return 0 ;
 }

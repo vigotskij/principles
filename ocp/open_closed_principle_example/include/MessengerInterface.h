@@ -13,7 +13,7 @@ class MessengerInterface
 {
     public:
         virtual ~MessengerInterface() {}
-        virtual std::string say() = 0;
+        virtual std::string say() = 0 ;
 };
 
 

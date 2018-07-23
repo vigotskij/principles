@@ -14,7 +14,7 @@ class GreeterInterface
 {
     public:
         virtual ~GreeterInterface() {}
-        virtual void greet(std::string message) = 0;
+        virtual void greet(std::string message) = 0 ;
 };
 
 #endif // GREETER_INTERFACE_H

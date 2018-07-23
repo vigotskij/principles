@@ -1,5 +1,5 @@
 /**
-* Copyright (c) 2016 Gabriel Ferreira <gabrielinuz@gmail.com>. All rights reserved. 
+* Copyright (c) 2016 Gabriel Ferreira <gabrielinuz@gmail.com>. All rights reserved.
 * This file is part of COMPSET.
 * Released under the GPL3 license
 * https://opensource.org/licenses/GPL-3.0
@@ -25,23 +25,23 @@ class LibraryLoader
 {
     public:
         virtual ~LibraryLoader();
-        static LibraryLoader* getInstance();
+        static LibraryLoader* getInstance() ;
 
-        void* loadLibrary(std::string name);
-        void* getExternalFunction(std::string name);
-        bool freeLibrary();
+        void* loadLibrary( std::string name ) ;
+        void* getExternalFunction( std::string name ) ;
+        bool freeLibrary() ;
 
     protected:
-        LibraryLoader();
+        LibraryLoader() ;
 
     private:
-        static LibraryLoader* instance;
-        void* library;
-        void* method;
-        bool freedom;
-};
+        static LibraryLoader *instance ;
+        void *library ;
+        void *method ;
+        bool freedom ;
+} ;
 
-LibraryLoader* LibraryLoader::instance = 0;
+LibraryLoader *LibraryLoader::instance = 0 ;
 
 LibraryLoader::LibraryLoader()
 {
@@ -55,47 +55,46 @@ LibraryLoader::~LibraryLoader()
 
 LibraryLoader* LibraryLoader::getInstance()
 {
-    if(instance == 0)
+    if( instance == 0 )
     {
-        instance = new LibraryLoader();
+        instance = new LibraryLoader() ;
     }
-    return instance;
+    return instance ;
 }
 
-void* LibraryLoader::loadLibrary(std::string name)
+void* LibraryLoader::loadLibrary( std::string name )
 {
     #ifdef __unix__
-        name += ".so";
-        library = dlopen(name.c_str(), RTLD_NOW);
-    #elif defined(_WIN32) || defined(WIN32)
-        name += ".dll";
-        library = (void*) LoadLibrary(name.c_str());
+        name += ".so" ;
+        library = dlopen( name.c_str() , RTLD_NOW ) ;
+    #elif defined( _WIN32 ) || defined( WIN32 )
+        name += ".dll" ;
+        library = ( void* ) LoadLibrary( name.c_str() ) ;
     #endif // defined
 
-    return library;
+    return library ;
 }
 
-void* LibraryLoader::getExternalFunction(std::string name)
+void* LibraryLoader::getExternalFunction( std::string name )
 {
     #ifdef __unix__
-        method = dlsym(library, name.c_str());
-    #elif defined(_WIN32) || defined(WIN32)
-        method = (void*) GetProcAddress((HINSTANCE)library, name.c_str());
+        method = dlsym( library , name.c_str() ) ;
+    #elif defined( _WIN32 ) || defined( WIN32 )
+        method = ( void* ) GetProcAddress( ( HINSTANCE ) library , name.c_str() );
     #endif // defined
 
-    return method;
+    return method ;
 }
 
 bool LibraryLoader::freeLibrary()
 {
     #ifdef __unix__
-        freedom = dlclose(library);
-    #elif defined(_WIN32) || defined(WIN32)
-        freedom = FreeLibrary((HINSTANCE)library);
+        freedom = dlclose( library ) ;
+    #elif defined( _WIN32 ) || defined( WIN32 )
+        freedom = FreeLibrary( (HINSTANCE)library);
     #endif // defined
 
     return freedom;
 }
 
 #endif // LIBRARY_LOADER_H
-
