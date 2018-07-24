@@ -61,26 +61,26 @@ void GtkGreeter::greet( std::string message )
 //ComponentInterface:
 bool GtkGreeter::implements(std::string interfaceName)
 {
-    return (interfaceName == "ComponentInterface" || interfaceName == "GreeterInterface") ?
-        implemented = true
-            : implemented = false;
+    return ( interfaceName == "ComponentInterface" || interfaceName == "GreeterInterface" ) ?
+        ( implemented = true )
+            : ( implemented = false ) ;
 }
 
 void* GtkGreeter::getInstance()
 {
-    if(implemented) {  referenceCounter++;  return this; }
+    if(implemented) {  referenceCounter++ ;  return this ; }
     return NULL;
 }
 
 void GtkGreeter::release()
 {
-    referenceCounter--;
-    if(referenceCounter <= 0) delete this;
+    referenceCounter-- ;
+    if( referenceCounter <= 0 ) delete this ;
 }
 
-extern "C" ComponentInterface* create();
+extern "C" ComponentInterface* create() ;
 
 ComponentInterface* create()
 {
-    return (ComponentInterface*) new GtkGreeter();
+    return ( ComponentInterface* ) new GtkGreeter() ;
 }

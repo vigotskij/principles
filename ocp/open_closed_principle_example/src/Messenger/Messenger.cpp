@@ -9,11 +9,11 @@
 #include <MessengerInterface.h>
 #include <ComponentInterface.h>
 
-class Messeger : public MessengerInterface, public ComponentInterface
+class Messenger : public MessengerInterface, public ComponentInterface
 {
     public:
-        Messeger() ;
-        virtual ~Messeger() ;
+        Messenger() ;
+        virtual ~Messenger() ;
         std::string say( void ) ;
 
         //ComponentInterface:
@@ -26,29 +26,29 @@ class Messeger : public MessengerInterface, public ComponentInterface
         bool implemented ;
 } ;
 
-Messeger::Messeger() : referenceCounter(0){}
+Messenger::Messenger() : referenceCounter(0){}
 
-Messeger::~Messeger(){}
+Messenger::~Messenger(){}
 
-std::string Messeger::say(){
-  return "Hello! I am a string and I came from the say() function in the Messeger class." ;
+std::string Messenger::say(){
+  return "Hello! I am a string and I came from the say() function in the Messenger class." ;
 }
 
 //ComponentInterface:
-bool Messeger::implements( std::string interfaceName )
+bool Messenger::implements( std::string interfaceName )
 {
-    return (interfaceName == "ComponentInterface" || interfaceName == "Messeger") ?
-        implemented = true
-            : implemented = false ;
+    return ( interfaceName == "ComponentInterface" || interfaceName == "MessengerInterface" ) ?
+        ( implemented = true )
+            : ( implemented = false ) ;
 }
 
-void* Messeger::getInstance()
+void* Messenger::getInstance()
 {
     if( implemented ) {  referenceCounter++ ;  return this ; }
     return NULL ;
 }
 
-void Messeger::release()
+void Messenger::release()
 {
     referenceCounter-- ;
     if( referenceCounter <= 0 ) delete this ;
@@ -58,5 +58,5 @@ extern "C" ComponentInterface* create() ;
 
 ComponentInterface* create()
 {
-    return (ComponentInterface*) new Messeger ;
+    return (ComponentInterface*) new Messenger ;
 }

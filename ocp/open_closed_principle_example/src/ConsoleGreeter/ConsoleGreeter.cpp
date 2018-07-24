@@ -39,8 +39,8 @@ void ConsoleGreeter::greet( std::string message )
 bool ConsoleGreeter::implements( std::string interfaceName )
 {
     return (interfaceName == "ComponentInterface" || interfaceName == "GreeterInterface") ?
-        implemented = true
-            : implemented = false ;
+        ( implemented = true )
+            : ( implemented = false ) ;
 }
 
 void* ConsoleGreeter::getInstance()

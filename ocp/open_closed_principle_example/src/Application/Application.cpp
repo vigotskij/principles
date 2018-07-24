@@ -43,7 +43,7 @@ int Application::run()
 
     ComponentFactory *componentFactoryObject002 = new ComponentFactory() ;
     componentFactoryObject002->setInterfaceName( "MessengerInterface" ) ;
-    ComponentInterface *messengerComponent = componentFactoryObject002->createFrom( "./Messeger" ) ;
+    ComponentInterface *messengerComponent = componentFactoryObject002->createFrom( "./Messenger" ) ;
     delete componentFactoryObject002 ;
 
     MessengerInterface *messengerObject = ( ( MessengerInterface* ) messengerComponent->getInstance() ) ;
@@ -60,8 +60,8 @@ int Application::run()
 bool Application::implements(std::string interfaceName)
 {
     return (interfaceName == "ComponentInterface" || interfaceName == "ApplicationInterface") ?
-        implemented = true
-            : implemented = false;
+        ( implemented = true )
+            : ( implemented = false ) ;
 }
 
 void* Application::getInstance()
@@ -73,7 +73,7 @@ void* Application::getInstance()
 void Application::release()
 {
     referenceCounter-- ;
-    if(referenceCounter <= 0) delete this ;
+    if( referenceCounter <= 0 ) delete this ;
 }
 
 extern "C" ComponentInterface* create() ;
